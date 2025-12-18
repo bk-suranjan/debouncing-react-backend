@@ -1,6 +1,10 @@
 import express from 'express'
-
+import cors from 'cors'
 const app = express();
+
+app.use(cors({
+      origin:'*',
+}))
 
 
 const data = [
@@ -54,7 +58,7 @@ app.get('/',(req,res)=>{
 
     if(req.query.search){
         console.log(req.query.search)
-        const user =  data.filter((d)=>d.name.toLowerCase() === req.query.search.toLowerCase())
+        const user =  data.filter((d)=>d.name.toLowerCase().includes(req.query.search.toLowerCase()))
         return res.status(200).json({user})
     }
 
